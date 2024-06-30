@@ -46,6 +46,7 @@ export const updateUser = async(formData)=>{
     redirect("/dashboard/users")
 }
 
+
 export const addProduct = async(formData)=>{
     // "use server"
     const {title, desc, price, stock, color, size  } = Object.fromEntries(formData)
@@ -63,6 +64,29 @@ export const addProduct = async(formData)=>{
     revalidatePath("/dashboard/products")
     redirect("/dashboard/products")
 }
+
+export const updateProduct = async(formData)=>{
+    // "use server"
+    const {id,title, desc, price, stock, color, size} = Object.fromEntries(formData)
+
+    try {
+        connectToDB()
+        const updateFields = {
+            title, desc, price, stock, color, size
+        }
+
+        Object.keys(updateFields).forEach((key) => (updateFields[key] ===  "" || undefined) && delete updateFields[key])
+
+        await Products.findByIdAndUpdate(id, updateFields)
+        
+    } catch (error) {
+        console.error(error)
+        throw new Error("Failed to update product!")
+    }
+    revalidatePath("/dashboard/products")
+    redirect("/dashboard/products")
+}
+
 
 
 export const deleteProduct = async(formData)=>{
