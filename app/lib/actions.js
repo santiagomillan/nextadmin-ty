@@ -129,16 +129,17 @@ export const deleteUser = async(formData)=>{
 //         throw new Error("Failed to login!")
 //     }
 // }
-export const authenticate = async (formData) => {
+export const authenticate = async (prevState, formData) => {
     const { username, password } = Object.fromEntries(formData);
   
     try {
       await signIn("credentials", { username, password });
     } catch (err) {
-      if (err.message.includes("CredentialsSignin")) {
-        return "Wrong Credentials";
-      }
-        // console.log(err)
-      throw err;
+    //   if (err.message.includes("CredentialsSignin")) {
+    //     return "Wrong Credentials";
+    //   }
+    //   console.log(err)
+    //   throw err;
+    return "Wrong Credentials";
     }
   };
