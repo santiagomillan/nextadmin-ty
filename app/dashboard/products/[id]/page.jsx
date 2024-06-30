@@ -7,7 +7,6 @@ const SingleProductPage = async ({params}) => {
     const {id} = params
 
     const product = await fetchProduct(id)
-    console.log(product)
     return(
         <div className={styles.container}>
             <div className={styles.infoContainer}>
